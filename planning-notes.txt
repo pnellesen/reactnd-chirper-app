@@ -4,32 +4,84 @@ Views/Components needed
 <App.../>
     <Home.../> Main page/Home (route: '/')
         <Navbar.../> - "Home" and "New Chirp" links
-
         <Timeline.../> - component with running list of Chirps, newest at top (<ul><li><Chirp.../></li></ul>) structure?
+            GET the list of chirps
+            GET the current user ('your timeline') so they can CLICK the like/reply buttons in each chirp
+
             <Chirp.../> - component containing Chirp information. When clicked will take user to <ViewChirp> (route: '/chirp/:id')
+                GET the information for a each chirp to display to user
+
+                SAVE the like/reply information (which user liked it)
+
+                data:
                 avatar - image of person who entered the Chirps
                 timestamp - when the chirp was entered
                 replyTo - is this chirp a reply to another chirp? If so, show who ("Replying to <user>")
                 text - text of the chirp
                 reply link/button - <ReplyLink.../> maybe? Will be used in multiple places.
+
                 like button - <LikeButton.../> - will be used multiple places
+                    needs to know if the current user has liked a particular chirp, will display in red if so.
+                    number of likes - probably part of like button component
+
+                <NewChirpForm.../> - component to hold form to enter a new chirp
+                    SAVE the text and which user added it when the user submits. Also save which chirp it is a reply to, if any.
+
+                    title,
+                    textArea entry box, placeholder "What's happening?",
+                    submit button
+
 
     <ViewChirp.../> - View a particular chirp  (route: '/chirp/:id')
-        <Navbar.../> - same as on Home
-
+        <Navbar.../> - "Home" and "New Chirp" links
         <Chirp.../> - same as on Home
-
-        <NewChirpForm.../> - component to hold form to enter a new chirp
-            title,
-            textArea entry box, placeholder "What's happening?",
-            submit button
-
         <Timeline..../> same component as on Home, but filtered only for replies to this particular chirp.
+            GET the list of replies to one particular chirp.
 
     <NewChirp.../> - Enter a new chirp - from link in navbar (route:'/newchirp')
-        <Navbar.../> same as on home, "New Chirp" link in bold
-
+        <Navbar.../> - "Home" and "New Chirp" links
         <NewChirpForm.../> - same component as in ViewChirp component.
+
+
+Which data should live in the store?
+
+    submitted chirp information
+    user information
+
+Which componenets should access store via "connect()"? (these would be considered "containers" I think)
+    <Home/>
+    <Chirp/>
+    <ViewChirp/>
+
+    <LikeButton/> - provisional, may not need store access, since it's probably a presentation-only component, can get info from props.
+            Note: when user hits the button, that user's id will be added to chirp's "likes" array. if user hits it again, will have to remove
+            the user. This may be a user funtion, we can pass it as a prop.
+
+Possible state/store objects:
+{
+    chirps: {
+        chirpId,
+        authorId,
+        timestamp,
+        replies,//array of chirp ids that replied to this chirp
+        replyingTo,// id of chirp this is a reply to. Can be empty/null
+        likes //array of user ids who liked this chirp
+    }
+
+    authors: {
+        authorId,
+        authorName,
+        authorAvatar,
+        authorEmail,
+        chirpsArray, //array of chirp IDs this author has created
+    }
+
+    currentUser: {// called "authedUser" in course docs.
+        authorId
+    }
+}
+
+
 
 
 
