@@ -1,0 +1,35 @@
+Views/Components needed
+===========================
+
+<App.../>
+    <Home.../> Main page/Home (route: '/')
+        <Navbar.../> - "Home" and "New Chirp" links
+
+        <Timeline.../> - component with running list of Chirps, newest at top (<ul><li><Chirp.../></li></ul>) structure?
+            <Chirp.../> - component containing Chirp information. When clicked will take user to <ViewChirp> (route: '/chirp/:id')
+                avatar - image of person who entered the Chirps
+                timestamp - when the chirp was entered
+                replyTo - is this chirp a reply to another chirp? If so, show who ("Replying to <user>")
+                text - text of the chirp
+                reply link/button - <ReplyLink.../> maybe? Will be used in multiple places.
+                like button - <LikeButton.../> - will be used multiple places
+
+    <ViewChirp.../> - View a particular chirp  (route: '/chirp/:id')
+        <Navbar.../> - same as on Home
+
+        <Chirp.../> - same as on Home
+
+        <NewChirpForm.../> - component to hold form to enter a new chirp
+            title,
+            textArea entry box, placeholder "What's happening?",
+            submit button
+
+        <Timeline..../> same component as on Home, but filtered only for replies to this particular chirp.
+
+    <NewChirp.../> - Enter a new chirp - from link in navbar (route:'/newchirp')
+        <Navbar.../> same as on home, "New Chirp" link in bold
+
+        <NewChirpForm.../> - same component as in ViewChirp component.
+
+
+
