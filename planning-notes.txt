@@ -2,8 +2,9 @@ Views/Components needed
 ===========================
 
 <App.../>
+    <Navbar.../> - "Home" and "New Chirp" links
     <Home.../> Main page/Home (route: '/')
-        <Navbar.../> - "Home" and "New Chirp" links
+        <!-- <Navbar.../> - "Home" and "New Chirp" links -->
         <Timeline.../> - component with running list of Chirps, newest at top (<ul><li><Chirp.../></li></ul>) structure?
             GET the list of chirps
             GET the current user ('your timeline') so they can CLICK the like/reply buttons in each chirp
@@ -33,13 +34,13 @@ Views/Components needed
 
 
     <ViewChirp.../> - View a particular chirp  (route: '/chirp/:id')
-        <Navbar.../> - "Home" and "New Chirp" links
+        <!--<Navbar.../> - "Home" and "New Chirp" links-->
         <Chirp.../> - same as on Home
         <Timeline..../> same component as on Home, but filtered only for replies to this particular chirp.
             GET the list of replies to one particular chirp.
 
     <NewChirp.../> - Enter a new chirp - from link in navbar (route:'/newchirp')
-        <Navbar.../> - "Home" and "New Chirp" links
+        <!--<Navbar.../> - "Home" and "New Chirp" links-->
         <NewChirpForm.../> - same component as in ViewChirp component.
 
 
@@ -49,6 +50,7 @@ Which data should live in the store?
     user information
 
 Which componenets should access store via "connect()"? (these would be considered "containers" I think)
+    <App/>
     <Home/>
     <Chirp/>
     <ViewChirp/>
