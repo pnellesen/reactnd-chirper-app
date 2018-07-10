@@ -9,14 +9,35 @@ import { fetchCurrentUser } from '../actions/currentUser'
 
 const CURRENT_USER_ID = 'tylermcginnis'
 
-
+// NOTE: this dispatch function will always return the new state resulting from the action
 export function handleInitialData() {
     return (dispatch) => {
         return getInitialData().then(({users, tweets}) => {
             // Note: users will map to our "authors", tweets will map to our "chirps"
-            dispatch(fetchAuthors(users));
-            dispatch(fetchChirps(tweets));
             dispatch(fetchCurrentUser(CURRENT_USER_ID));
+           
+            const currentUserInfo = dispatch(fetchAuthors(users))['authors'][CURRENT_USER_ID];
+            
+            
+            const allChirps = dispatch(fetchChirps(tweets))['chirps'];
+            console.log("all chirps? ", allChirps);
+            
+            
+            // Not sure we need to display all chirps by the current user.
+            const currentUserChirps = currentUserInfo.tweets.map((tweet) => allChirps[tweet]);
+            console.log("chirps for currentUser? ", currentUserChirps);
+            
+            /* This probably not needed - can get like information for a chirp from the chirp itself. Good practice though ;)
+            
+            const chirpKeys = Object.keys(allChirps);
+            console.log("chirp keys: ", chirpKeys);
+            currentUserInfo.likes = chirpKeys.filter((chirpKey) => (
+                allChirps[chirpKey].likes.indexOf(CURRENT_USER_ID) >= 0
+            ))
+            
+            console.log("current user info after adding likes? ", currentUserInfo);
+            */
+
         })
     }
 }

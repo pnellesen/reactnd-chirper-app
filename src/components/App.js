@@ -5,8 +5,7 @@ import { handleInitialData } from '../actions/shared'
 
 class App extends Component {
   componentDidMount() {
-    console.log("componentDidMount. props: ", this.props)
-    //subscribe(() => this.forceUpdate());// This is rarely done, but applies for this particular use case
+    console.log("componentDidMount. state?: ", this.props)
     this.props.dispatch(handleInitialData());
 }
 
