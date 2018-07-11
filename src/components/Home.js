@@ -13,7 +13,7 @@ class Home extends Component {
       </div>
     )
   }
-  
+
 }
 const mapStateToProps = ( {chirps} ) => ({
   chirpIds: Object.keys(chirps).sort(function(a,b){return chirps[b].timestamp - chirps[a].timestamp})
