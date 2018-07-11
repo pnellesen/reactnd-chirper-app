@@ -1,6 +1,7 @@
 import React from 'react'
 import Chirp from './Chirp'
 
+
 /**
  * We'll use this component to display the relevant chirps. If we're on the "My Tweets" page, we'll send a filtered chirpIds array in props for just those chirps written by the current user.
  * We can do a check for currentUser as a way to see if we've loaded our data. Might be better

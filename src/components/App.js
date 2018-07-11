@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { handleInitialData } from '../actions/shared'
 import Dashboard from '../components/Home'
 import Navbar from '../components/Navbar'
+import LoadingBar from 'react-redux-loading'
 
 
 class App extends Component {
@@ -15,6 +16,7 @@ class App extends Component {
   render() {
     return (
       <div>
+        <LoadingBar/>
         <Navbar/>
         <Dashboard/>
       </div>

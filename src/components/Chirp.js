@@ -4,6 +4,7 @@ import  *  as helpers from '../utils/helpers'
 import TiArrowBackOutline from 'react-icons/lib/ti/arrow-back-outline'
 import TiHeartOutline from 'react-icons/lib/ti/heart-outline'
 import TiHeartFullOutline from 'react-icons/lib/ti/heart-full-outline'
+import { handleToggleLikes } from '../actions/chirps';
 
 class Chirp extends Component {
   toggleLike = () => {
@@ -14,7 +15,7 @@ class Chirp extends Component {
       authedUser: this.props.currentUser
     }
     console.log("toggle like - info to send: ",toggleLikeInfo);
-    //this.props.dispatch(saveLikeToggle(toggleLikeInfo))
+    handleToggleLikes(toggleLikeInfo);
     
   }
 
@@ -52,7 +53,7 @@ class Chirp extends Component {
             <div className={'tweet-icons'}>
              <TiArrowBackOutline className={'tweet-icon'} onClick={(e) => this.replyToChirp(e, chirpInfo.id)}/>
              <span>{chirpInfo.replies > 0 && chirpInfo.replies}</span>
-            <button className={'heart-button'} onClick={(e) => this.toggleLike}>
+            <button className={'heart-button'} onClick={(e) => this.toggleLike()}>
              {chirpInfo.hasLiked ? <TiHeartFullOutline color='#e0245e'  className={'tweet-icon'} /> : <TiHeartOutline className={'tweet-icon'}/>}
             </button>
              {chirpInfo.likes > 0 && (<span>{chirpInfo.likes}</span>)}
