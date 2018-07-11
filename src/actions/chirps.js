@@ -1,4 +1,6 @@
+//import { saveLikeToggle } from '../utils/api'
 export const FETCH_DATA = 'FETCH_DATA'
+
 
 export const fetchChirps = (chirps) => {
     return {
@@ -7,3 +9,13 @@ export const fetchChirps = (chirps) => {
 
     }
 }
+
+/*
+export const handleToggleLikes = (toggleInfo) => {
+    return (dispatch) => {
+        dispatch(toggleLikeAction)
+        return saveLikeToggle(toggleInfo)
+     }
+}
+*/
+
