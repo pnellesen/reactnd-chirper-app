@@ -11,3 +11,12 @@ class ViewChirp extends Component {
 }
 
 export default ViewChirp
+
+
+/**
+   // to get all replies to this chirp in Timeline:
+  const mapStateToProps = ( {chirps, chirpId} ) => (
+    {chirpIds: Object.keys(chirps).filter((chirpId) => chirps[chirpId].replies.includes(chirpId))}
+  )
+  export default connect(mapStateToProps)(ViewChirp)
+*/
