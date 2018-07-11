@@ -8,14 +8,14 @@ class Home extends Component {
     console.log("got chirp ids? ", this.props.chirpIds)
     return (
       <div>
-        <div>Navbar here</div>
-        <Timeline chirpIds={this.props.chirpIds}/>
+        <Timeline chirpIds={this.props.chirpIds} currentUser={this.props.currentUser}/>
       </div>
     )
   }
 
 }
-const mapStateToProps = ( {chirps} ) => ({
-  chirpIds: Object.keys(chirps).sort(function(a,b){return chirps[b].timestamp - chirps[a].timestamp})
+const mapStateToProps = ( {chirps, currentUser} ) => ({
+  chirpIds: Object.keys(chirps).sort(function(a,b){return chirps[b].timestamp - chirps[a].timestamp}),
+  currentUser: currentUser
 })
 export default connect(mapStateToProps)(Home)
