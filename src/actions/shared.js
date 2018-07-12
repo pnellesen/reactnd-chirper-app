@@ -28,3 +28,11 @@ export function handleInitialData() {
         })
     }
 }
+
+export function refreshData() {// probably not needed, but keep anyway for reference
+    return (dispatch) => {
+        dispatch(fetchCurrentUser(CURRENT_USER_ID));
+        dispatch(fetchAuthors());
+        dispatch(fetchChirps());
+    }
+}

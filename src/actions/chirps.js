@@ -1,6 +1,7 @@
 import { saveLikeToggle } from '../utils/api'
 export const FETCH_DATA = 'FETCH_DATA'
 export const TOGGLE_LIKE = 'TOGGLE_LIKE'
+export const NEW_CHIRP = 'NEW_CHIRP'
 
 
 export const fetchChirps = (chirps) => {
@@ -19,6 +20,13 @@ export const toggleLikeAction = (toggleInfo) => {
     }
 }
 
+export const newChirpAction = (chirpInfo) => {
+    return {
+        type: NEW_CHIRP,
+        chirpInfo
+    }
+}
+
 
 export const handleToggleLikes = (toggleInfo) => {
 
@@ -33,6 +41,10 @@ export const handleToggleLikes = (toggleInfo) => {
         })
 
      }
+}
+
+export const handleNewChirp = (newChirpInfo) => {
+    console.log("handleNewChirp - info: ", newChirpInfo)
 }
 
 
