@@ -20,5 +20,6 @@ export function saveLikeToggle (info) {
 }
 
 export function saveTweet (info) {
+  console.log("saveTweet: info: ", info)
   return _saveTweet(info)
 }

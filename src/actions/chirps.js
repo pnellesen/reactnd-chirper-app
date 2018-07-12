@@ -1,4 +1,6 @@
-import { saveLikeToggle } from '../utils/api'
+import { saveLikeToggle, saveTweet } from '../utils/api'
+import { showLoading, hideLoading } from 'react-redux-loading'
+
 export const FETCH_DATA = 'FETCH_DATA'
 export const TOGGLE_LIKE = 'TOGGLE_LIKE'
 export const NEW_CHIRP = 'NEW_CHIRP'
@@ -44,7 +46,14 @@ export const handleToggleLikes = (toggleInfo) => {
 }
 
 export const handleNewChirp = (newChirpInfo) => {
-    console.log("handleNewChirp - info: ", newChirpInfo)
+    console.log("handleNewChirp: ", newChirpInfo)
+    return (dispatch) => {
+        dispatch(showLoading())
+        return saveTweet(newChirpInfo)
+            .then((chirp) => dispatch(newChirpAction(chirp)))
+            .then(() => hideLoading())
+    }
+
 }
 
 

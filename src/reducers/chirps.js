@@ -1,4 +1,4 @@
-import { FETCH_DATA, TOGGLE_LIKE } from '../actions/chirps'
+import { FETCH_DATA, TOGGLE_LIKE, NEW_CHIRP } from '../actions/chirps'
 
 export default function chirps (state={}, action) {
     switch(action.type) {
@@ -18,6 +18,16 @@ export default function chirps (state={}, action) {
                     ...chirpToToggle,
                     likes: hasLiked ? chirpToToggle.likes.filter((authorId) => authorId !== authedUser) : chirpToToggle.likes.concat([authedUser])
                 }
+            }
+        case NEW_CHIRP:
+            const { chirpInfo } = action;
+            const chirpToUpdate = chirpInfo.replyingTo !== null ? {[chirpInfo.replyingTo]: {...state[chirpInfo.replyingTo], replies: state[chirpInfo.replyingTo].replies.concat([chirpInfo.id])}} : {}
+
+            return {
+                ...state,
+                [chirpInfo.id]: {...chirpInfo},
+                ...chirpToUpdate
+
             }
         default:
             return state

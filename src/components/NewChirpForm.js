@@ -14,7 +14,7 @@ class NewChirpForm extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    handleNewChirp({text: this.state.chirpText, author:this.props.currentUser, replyingTo: this.props.replyingTo})
+    this.props.dispatch(handleNewChirp({text: this.state.chirpText, author:this.props.currentUser, replyingTo: this.props.replyingTo}))
     // we'll want to send user back to home page when new chirp is submitted. Will need a promise returned from handleNewChirp?
   }
   render() {
