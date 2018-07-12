@@ -5,6 +5,7 @@ import Dashboard from '../components/Home'
 import NewChirpForm from '../components/NewChirpForm'
 import Navbar from '../components/Navbar'
 import LoadingBar from 'react-redux-loading'
+import ViewChirp from './ViewChirp';
 
 
 class App extends Component {
@@ -15,11 +16,12 @@ class App extends Component {
   
   // probably won't need the state or 'changeView' function once we set up ReactRouter
   state = {
-    visibleComp: 'dashboard'
+    visibleComp: 'dashboard',
+    chirpId: null
   }
 
-  changeView = (newView) => {
-    this.setState({visibleComp: newView})
+  changeView = (newView, chirpId = null) => {
+    this.setState({visibleComp: newView, chirpId: chirpId})
   }
 
   render() {
@@ -27,8 +29,9 @@ class App extends Component {
       <div>
         <LoadingBar/>
         <Navbar changeView={this.changeView}/>
-        {this.state.visibleComp === 'dashboard' && <Dashboard/>}
-        {this.state.visibleComp === 'newchirp' && <NewChirpForm/>}
+        {this.state.visibleComp === 'dashboard' && <Dashboard changeView={this.changeView}/>}
+        {this.state.visibleComp === 'newchirp' && <NewChirpForm changeView={this.changeView} replyingTo={this.state.chirpId}/>}
+        {this.state.visibleComp === 'viewsinglechirp' && <ViewChirp changeView={this.changeView} chirpId={this.state.chirpId}/>}
       </div>
     )
   }

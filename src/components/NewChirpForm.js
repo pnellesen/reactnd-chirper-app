@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { handleNewChirp } from '../actions/chirps';
+import Chirp from './Chirp'
 
 class NewChirpForm extends Component {
   state = {
@@ -27,6 +28,7 @@ class NewChirpForm extends Component {
           <div className={textRemaining < 100 ? 'tweet-length' : 'none'}>Characters remaining: {textRemaining}</div>
           <button type={'submit'} className={'btn'} disabled={chirpText.length === 0}>Submit</button>
           </form>
+          {this.props.replyingTo !== null && (<Chirp chirpId={this.props.replyingTo}/>)}
       </div>
     )
   }

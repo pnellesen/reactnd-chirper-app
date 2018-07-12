@@ -23,21 +23,24 @@ class Chirp extends Component {
   goToParent = (evt, parentId) => {
     evt.preventDefault();
     console.log("Go to", parentId);
+    //this.props.changeView('viewsinglechirp', parentId);
+    
   }
 
   replyToChirp = (evt, chirpId) => {
     evt.preventDefault();
     console.log("Reply to ", chirpId);
+    //this.props.changeView('newchirp', chirpId);
   }
 
   render() {
 
-    const { chirpInfo } = this.props;
+    const { chirpInfo , changeView } = this.props;
     if (chirpInfo === null) {
       return <p>This Chirp not found</p>
     }
 
-    //console.log("formatTweet output: ", chirpInfo);
+    //console.log("Chirp changeView: ", changeView);
 
     return (
 

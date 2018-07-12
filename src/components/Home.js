@@ -7,14 +7,15 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <Timeline chirpIds={this.props.chirpIds} currentUser={this.props.currentUser}/>
+        <Timeline chirpIds={this.props.chirpIds} currentUser={this.props.currentUser} changeView={this.props.changeView}/>
       </div>
     )
   }
 
 }
-const mapStateToProps = ( {chirps, currentUser} ) => ({
+const mapStateToProps = ( {chirps, currentUser}, { changeView } ) => ({
   chirpIds: Object.keys(chirps).sort(function(a,b){return chirps[b].timestamp - chirps[a].timestamp}),
-  currentUser: currentUser
+  currentUser: currentUser,
+  changeView: changeView
 })
 export default connect(mapStateToProps)(Home)

@@ -14,7 +14,7 @@ function Timeline(props) {
             <div className={'container'}>
             <h1 className={'center'}>Your timeline</h1>
 
-            {(props.chirpIds.length > 0 && props.currentUser !== null) ? props.chirpIds.map((chirpId) => <Chirp key={chirpId} chirpId={chirpId}/>) : <div className={'center'}>Loading...</div>}
+            {(props.chirpIds.length > 0 && props.currentUser !== null) ? props.chirpIds.map((chirpId) => <Chirp key={chirpId} chirpId={chirpId} changeView={props.changeView}/>) : <div className={'center'}>Loading...</div>}
           </div>
         )
 }
