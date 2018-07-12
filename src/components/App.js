@@ -16,8 +16,8 @@ class App extends Component {
   
   // probably won't need the state or 'changeView' function once we set up ReactRouter
   state = {
-    visibleComp: 'dashboard',
-    chirpId: null
+    visibleComp: 'viewsinglechirp',
+    chirpId: '6h5ims9iks66d4m7kqizmv'
   }
 
   changeView = (newView, chirpId = null) => {
