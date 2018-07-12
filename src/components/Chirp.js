@@ -8,15 +8,16 @@ import { handleToggleLikes } from '../actions/chirps';
 
 class Chirp extends Component {
   toggleLike = () => {
-    
+
     const toggleLikeInfo = {
       id: this.props.chirpId,
       hasLiked: this.props.chirpInfo.hasLiked,
       authedUser: this.props.currentUser
     }
     console.log("toggle like - info to send: ",toggleLikeInfo);
-    handleToggleLikes(toggleLikeInfo);
-    
+
+    this.props.dispatch(handleToggleLikes(toggleLikeInfo));
+
   }
 
   goToParent = (evt, parentId) => {
@@ -30,16 +31,14 @@ class Chirp extends Component {
   }
 
   render() {
-    
+
     const { chirpInfo } = this.props;
-    console.log("Chirp Info: ", chirpInfo);
-    
     if (chirpInfo === null) {
       return <p>This Chirp not found</p>
     }
 
     //console.log("formatTweet output: ", chirpInfo);
-    
+
     return (
 
       <div className={'tweet'}>
@@ -57,9 +56,9 @@ class Chirp extends Component {
              {chirpInfo.hasLiked ? <TiHeartFullOutline color='#e0245e'  className={'tweet-icon'} /> : <TiHeartOutline className={'tweet-icon'}/>}
             </button>
              {chirpInfo.likes > 0 && (<span>{chirpInfo.likes}</span>)}
-             
+
             </div>
-          </div>  
+          </div>
         </div>
       </div>
     )

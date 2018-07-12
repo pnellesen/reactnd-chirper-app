@@ -5,7 +5,6 @@ import Timeline from './Timeline'
 
 class Home extends Component {
   render() {
-    console.log("got chirp ids? ", this.props.chirpIds)
     return (
       <div>
         <Timeline chirpIds={this.props.chirpIds} currentUser={this.props.currentUser}/>

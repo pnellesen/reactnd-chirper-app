@@ -12,7 +12,7 @@ export const fetchChirps = (chirps) => {
 }
 
 export const toggleLikeAction = (toggleInfo) => {
-    
+
     return {
         type: TOGGLE_LIKE,
         toggleInfo
@@ -21,14 +21,15 @@ export const toggleLikeAction = (toggleInfo) => {
 
 
 export const handleToggleLikes = (toggleInfo) => {
-    console.log("handleToggleLikes: ", toggleInfo)
+
     return (dispatch) => {
-        
-        saveLikeToggle(toggleInfo).then(() => {
-            dispatch(toggleLikeAction(toggleInfo))
+        dispatch(toggleLikeAction(toggleInfo))
+        return saveLikeToggle(toggleInfo).then(() => {
+            console.log("saveLikeToggle finished:")
         }).catch((e) => {
             console.warn('Error toggling chirp: ', e);
             alert('There was a problem liking this chirp. Please try again');
+            dispatch(toggleLikeAction(toggleInfo))
         })
 
      }
