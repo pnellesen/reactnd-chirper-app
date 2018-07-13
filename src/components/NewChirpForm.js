@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { handleNewChirp } from '../actions/chirps';
-import Chirp from './Chirp'
 
 class NewChirpForm extends Component {
   state = {
@@ -14,9 +13,14 @@ class NewChirpForm extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.dispatch(handleNewChirp({text: this.state.chirpText, author:this.props.currentUser, replyingTo: this.props.replyingTo}))
-    // we'll want to send user back to home page when new chirp is submitted. Will need a promise returned from handleNewChirp?
+    this.props.dispatch(handleNewChirp({
+      text: this.state.chirpText,
+      author:this.props.currentUser,
+      replyingTo: this.props.replyingTo
+    }))
+    .then(() => this.props.history !== null && this.props.history.push('/'))
   }
+  
   render() {
     const { chirpText } = this.state
     const textRemaining = 280 - chirpText.length
@@ -33,10 +37,11 @@ class NewChirpForm extends Component {
   }
 }
 
-const mapStateToProps = ( { currentUser }, { replyingTo = null } ) => {
+const mapStateToProps = ( { currentUser }, { replyingTo = null, history = null } ) => {
   return {
     currentUser: currentUser,
-    replyingTo: replyingTo
+    replyingTo: replyingTo, 
+    history: history
   }
 }
 

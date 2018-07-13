@@ -3,10 +3,6 @@ import { NavLink } from 'react-router-dom'
 
 
 function Navbar(props) {
-      const gotoNewChirp = (evt, newView) => {// This will be removed once we set up Router
-        evt.preventDefault();
-        props.changeView(newView);
-      }
       return (
           <div className={'nav'}>
             <ul>

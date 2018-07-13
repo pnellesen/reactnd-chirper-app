@@ -9,42 +9,20 @@ import { handleToggleLikes } from '../actions/chirps';
 
 class Chirp extends Component {
   toggleLike = () => {
-
     const toggleLikeInfo = {
       id: this.props.chirpId,
       hasLiked: this.props.chirpInfo.hasLiked,
       authedUser: this.props.currentUser
     }
-    console.log("toggle like - info to send: ",toggleLikeInfo);
-
     this.props.dispatch(handleToggleLikes(toggleLikeInfo));
-
-  }
-
-  goToParent = (evt, parentId) => {
-    evt.preventDefault();
-    console.log("Go to", parentId);
-    //this.props.changeView('viewsinglechirp', parentId);
-    
-  }
-
-  replyToChirp = (evt, chirpId) => {
-    evt.preventDefault();
-    console.log("Reply to ", chirpId);
-    //this.props.changeView('newchirp', chirpId);
   }
 
   render() {
-
-    const { chirpInfo , changeView, match } = this.props;
+    const { chirpInfo } = this.props;
     if (chirpInfo === null) {
       return <p>This Chirp not found</p>
     }
-
-    //console.log("Chirp changeView: ", changeView);
-
     return (
-
       <div className={'tweet'}>
         <img src={chirpInfo.avatar} alt={`${chirpInfo.name}'s avatar`} className={'avatar'}/>
         <div className={'tweet-info'}>
@@ -60,7 +38,6 @@ class Chirp extends Component {
              {chirpInfo.hasLiked ? <TiHeartFullOutline color='#e0245e'  className={'tweet-icon'} /> : <TiHeartOutline className={'tweet-icon'}/>}
             </button>
              {chirpInfo.likes > 0 && (<span>{chirpInfo.likes}</span>)}
-
             </div>
           </div>
         </div>
