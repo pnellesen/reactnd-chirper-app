@@ -31,11 +31,9 @@ export const newChirpAction = (chirpInfo) => {
 
 
 export const handleToggleLikes = (toggleInfo) => {
-
     return (dispatch) => {
         dispatch(toggleLikeAction(toggleInfo))
         return saveLikeToggle(toggleInfo).then(() => {
-            console.log("saveLikeToggle finished:")
         }).catch((e) => {
             console.warn('Error toggling chirp: ', e);
             alert('There was a problem liking this chirp. Please try again');
@@ -46,12 +44,11 @@ export const handleToggleLikes = (toggleInfo) => {
 }
 
 export const handleNewChirp = (newChirpInfo) => {
-    console.log("handleNewChirp: ", newChirpInfo)
     return (dispatch) => {
         dispatch(showLoading())
         return saveTweet(newChirpInfo)
             .then((chirp) => dispatch(newChirpAction(chirp)))
-            .then(() => hideLoading())
+            .then(() => dispatch(hideLoading()))
     }
 
 }
