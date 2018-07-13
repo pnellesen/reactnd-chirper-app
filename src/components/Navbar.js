@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { NavLink } from 'react-router-dom'
 
 
 function Navbar(props) {
@@ -9,7 +9,11 @@ function Navbar(props) {
       }
       return (
           <div className={'nav'}>
-            <ul><li><button className={'btn active'} onClick={(e) => gotoNewChirp(e, 'dashboard')}>Home</button></li><li><button className={'btn'} onClick={(e) => gotoNewChirp(e, 'newchirp')}>New Chirp</button></li><li><button className={'btn'}>My Chirps</button></li></ul>
+            <ul>
+              <li><NavLink to={'/'} exact activeClassName='active'>Home</NavLink></li>
+              <li><NavLink to={'/new'} activeClassName='active'>New chirp</NavLink></li>
+              <li><NavLink to={'/my'} activeClassName='active'>My Chirps</NavLink></li>
+            </ul>
           </div>
         )
 }

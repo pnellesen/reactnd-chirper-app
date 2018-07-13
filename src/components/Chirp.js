@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import  *  as helpers from '../utils/helpers'
 import TiArrowBackOutline from 'react-icons/lib/ti/arrow-back-outline'
 import TiHeartOutline from 'react-icons/lib/ti/heart-outline'
@@ -35,7 +36,7 @@ class Chirp extends Component {
 
   render() {
 
-    const { chirpInfo , changeView } = this.props;
+    const { chirpInfo , changeView, match } = this.props;
     if (chirpInfo === null) {
       return <p>This Chirp not found</p>
     }
@@ -50,10 +51,10 @@ class Chirp extends Component {
           <div>
             <span>{chirpInfo.name}</span>
             <div>{helpers.formatDate(chirpInfo.timestamp)}</div>
-            {chirpInfo.parent !== null && (<button className={'replying-to'} onClick={(e) => this.goToParent(e, chirpInfo.parent.id)}>Replying to: @{chirpInfo.parent.author}</button>)}
+            {chirpInfo.parent !== null && (<Link to={`/reply/${chirpInfo.parent.id}`} className={'replying-to'}>Replying to: @{chirpInfo.parent.author}</Link>)}
             <p>{chirpInfo.text}</p>
             <div className={'tweet-icons'}>
-             <TiArrowBackOutline className={'tweet-icon'} onClick={(e) => this.replyToChirp(e, chirpInfo.id)}/>
+             <Link to={`/reply/${chirpInfo.id}`}><TiArrowBackOutline className={'tweet-icon'}/></Link>
              <span>{chirpInfo.replies > 0 && chirpInfo.replies}</span>
             <button className={'heart-button'} onClick={(e) => this.toggleLike()}>
              {chirpInfo.hasLiked ? <TiHeartFullOutline color='#e0245e'  className={'tweet-icon'} /> : <TiHeartOutline className={'tweet-icon'}/>}

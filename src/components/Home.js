@@ -7,6 +7,7 @@ class Home extends Component {
   render() {
     return (
       <div>
+        <h1 className={'center'}>Your timeline</h1>
         <Timeline chirpIds={this.props.chirpIds} currentUser={this.props.currentUser} changeView={this.props.changeView}/>
       </div>
     )

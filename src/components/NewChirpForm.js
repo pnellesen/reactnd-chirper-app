@@ -22,18 +22,12 @@ class NewChirpForm extends Component {
     const textRemaining = 280 - chirpText.length
     return (
       <div className={'container'}>
-        <h3 className={'center'}>Compose new Chirp</h3>
+        <h3 className={'center'}>Compose {this.props.replyingTo ? 'reply' : 'new Chirp'}</h3>
         <form className={'new-tweet'} onSubmit={(e) => this.handleSubmit(e)}>
           <textarea className={'textarea'} placeholder={"What's happening?"} value={chirpText} onChange={this._onChange} maxLength={280}/>
           <div className={textRemaining < 100 ? 'tweet-length' : 'none'}>Characters remaining: {textRemaining}</div>
           <button type={'submit'} className={'btn'} disabled={chirpText.length === 0}>Submit</button>
-          </form>
-          {this.props.replyingTo !== null && (
-            <div>
-            <h3 className={'center'}>Replying to:</h3>
-            <Chirp chirpId={this.props.replyingTo}/>
-            </div>
-          )}
+        </form>
       </div>
     )
   }

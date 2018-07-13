@@ -1,5 +1,7 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
+import { BrowserRouter, Route } from 'react-router-dom'
+
 import { handleInitialData, refreshData } from '../actions/shared'
 import Dashboard from '../components/Home'
 import NewChirpForm from '../components/NewChirpForm'
@@ -26,13 +28,23 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        <LoadingBar/>
-        <Navbar changeView={this.changeView}/>
-        {this.state.visibleComp === 'dashboard' && <Dashboard changeView={this.changeView}/>}
-        {this.state.visibleComp === 'newchirp' && <NewChirpForm changeView={this.changeView} replyingTo={this.state.chirpId}/>}
-        {this.state.visibleComp === 'viewsinglechirp' && <ViewChirp changeView={this.changeView} chirpId={this.state.chirpId}/>}
-      </div>
+      
+        <BrowserRouter>
+          <div>
+            <LoadingBar/>
+            <Navbar changeView={this.changeView}/>
+            <Route exact path='/' render={() => (
+              <Dashboard/>
+            )}/>
+            <Route path='/new' render={() => (
+              <NewChirpForm/>
+            )}/>
+            <Route path={`/reply/:chirpId`} render={({ match }) => (
+              <ViewChirp chirpId={match.params.chirpId}/>
+            )}/>
+          </div>
+        </BrowserRouter>
+      
     )
   }
 }
