@@ -18,19 +18,22 @@ class App extends Component {
   render() {
     return (
         <BrowserRouter>
-          <div>
+          <Fragment>
             <LoadingBar/>
-            <Navbar/>
-            <Route exact path='/' render={() => (
-              <Dashboard/>
-            )}/>
-            <Route path='/new' render={({ history }) => (
-              <NewChirpForm history={history}/>
-            )}/>
-            <Route path={`/reply/:chirpId`} render={({ match }) => (
-              <ViewChirp chirpId={match.params.chirpId}/>
-            )}/>
-          </div>
+            <div className={'container'}>
+              <Navbar/>
+              <Route exact path='/' render={() => (
+                <Dashboard/>
+              )}/>
+              <Route path='/new' render={({ history }) => (
+                <NewChirpForm history={history}/>
+              )}/>
+              <Route path={`/reply/:chirpId`} render={({ match }) => (
+                <ViewChirp chirpId={match.params.chirpId}/>
+              )}/>
+            </div>
+          </Fragment>
+          
         </BrowserRouter>
       
     )
