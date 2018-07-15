@@ -7,8 +7,22 @@ import TiHeartOutline from 'react-icons/lib/ti/heart-outline'
 import TiHeartFullOutline from 'react-icons/lib/ti/heart-full-outline'
 import TiEdit from 'react-icons/lib/ti/edit'
 import { handleToggleLikes } from '../actions/chirps';
+import NewChirpForm from './NewChirpForm'
 
 class Chirp extends Component {
+  state = {
+    chirpEditText: this.props.chirpInfo.text,
+    showEdit: false
+  }
+
+  componentDidMount() {
+
+  }
+  _onChange = (evt) => (
+    this.setState({
+      chirpEditText: evt.target.value 
+    })
+  )
   toggleLike = () => {
     const toggleLikeInfo = {
       id: this.props.chirpId,
@@ -17,10 +31,15 @@ class Chirp extends Component {
     }
     this.props.dispatch(handleToggleLikes(toggleLikeInfo));
   }
+  toggleEdit = () => {
+      this.setState({showEdit: !this.state.showEdit})
+  }
+  handleEdit = (evt) => {
+    console.log("edit chirp: ", this.state.chirpEditText);
+  }
 
   render() {
     const { chirpInfo } = this.props;
-    console.log("ChirpInfo: ", chirpInfo);
     if (chirpInfo === null) {
       return <p>This Chirp not found</p>
     }
@@ -32,7 +51,10 @@ class Chirp extends Component {
             <span>{chirpInfo.name}</span>
             <div>{helpers.formatDate(chirpInfo.timestamp)}</div>
             {chirpInfo.parent !== null && (<Link to={`/reply/${chirpInfo.parent.id}`} className={'replying-to'}>Replying to: @{chirpInfo.parent.author}</Link>)}
-            <p>{chirpInfo.text}</p>
+            <p style={{display: this.state.showEdit ? 'none' : 'block'}}>{this.state.chirpEditText}</p>
+            <form className={'new-tweet'} onSubmit={(e) => this.handleEdit(e)} style={{display: this.state.showEdit ? 'block' : 'none'}}>
+            <textarea className={'textarea'} placeholder={"What's happening?"} value={this.state.chirpEditText} onChange={this._onChange} maxLength={280}/>
+            </form>
             <div className={'tweet-icons'} style={{float:'left'}}>
               <Link to={`/reply/${chirpInfo.id}`}><TiArrowBackOutline className={'tweet-icon'}/></Link>
               <span>{chirpInfo.replies > 0 && chirpInfo.replies}</span>
@@ -41,7 +63,7 @@ class Chirp extends Component {
               </button>
               {chirpInfo.likes > 0 && (<span>{chirpInfo.likes}</span>)}
             </div>
-            {chirpInfo.author === this.props.currentUser && <TiEdit className='tweet-icon' style={{float:'right'}}/>}
+            {chirpInfo.author === this.props.currentUser && <TiEdit onClick={(e) => this.toggleEdit()} className='tweet-icon' style={{float:'right'}}/>}
           </div>
 
         </div>
