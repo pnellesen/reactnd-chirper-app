@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { BrowserRouter, Route } from 'react-router-dom'
 
-import { handleInitialData, refreshData } from '../actions/shared'
+import { handleInitialData } from '../actions/shared'
 import Dashboard from '../components/Home'
 import NewChirpForm from '../components/NewChirpForm'
 import Navbar from '../components/Navbar'
@@ -22,20 +22,13 @@ class App extends Component {
             <LoadingBar/>
             <div className={'container'}>
               <Navbar/>
-              <Route exact path='/' render={() => (
-                <Dashboard/>
-              )}/>
-              <Route path='/new' render={({ history }) => (
-                <NewChirpForm history={history}/>
-              )}/>
-              <Route path={`/reply/:chirpId`} render={({ match }) => (
-                <ViewChirp chirpId={match.params.chirpId}/>
-              )}/>
+              <Route exact path='/' component={Dashboard}/>
+              <Route path='/new' component={NewChirpForm}/>
+              <Route path='/reply/:chirpId' component={ViewChirp}/>
+              <Route path='/my' component={Dashboard}/>
             </div>
           </Fragment>
-          
         </BrowserRouter>
-      
     )
   }
 }

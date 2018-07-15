@@ -18,21 +18,11 @@ export function handleInitialData() {
             // Note: users will map to our "authors", tweets will map to our "chirps"
             dispatch(fetchCurrentUser(CURRENT_USER_ID));
 
-            const currentUserInfo = dispatch(fetchAuthors(users))['authors'][CURRENT_USER_ID];
+            dispatch(fetchAuthors(users))
 
-            const allChirps = dispatch(fetchChirps(tweets))['chirps'];
-
-            const currentUserChirps = currentUserInfo.tweets.map((tweet) => allChirps[tweet]);
+            dispatch(fetchChirps(tweets))
 
             dispatch(hideLoading());
         })
-    }
-}
-
-export function refreshData() {// probably not needed, but keep anyway for reference
-    return (dispatch) => {
-        dispatch(fetchCurrentUser(CURRENT_USER_ID));
-        dispatch(fetchAuthors());
-        dispatch(fetchChirps());
     }
 }

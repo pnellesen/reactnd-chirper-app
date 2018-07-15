@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import {Redirect, withRouter} from 'react-router-dom'
 import { handleNewChirp } from '../actions/chirps';
 
 class NewChirpForm extends Component {
   state = {
-    chirpText: ''
+    chirpText: '',
+    toHome: false
   }
 
   _onChange = (evt) => {
@@ -18,13 +20,18 @@ class NewChirpForm extends Component {
       author:this.props.currentUser,
       replyingTo: this.props.replyingTo
     }))
-    .then(() => this.props.history !== null && this.props.history.push('/'))
+    this.setState({
+      chirpText: '',
+      toHome: !this.props.replyingTo && true
+    });
+    !this.props.replyingTo  && this.props.history.push('/new')
   }
-  
+
   render() {
     const { chirpText } = this.state
     const textRemaining = 280 - chirpText.length
     return (
+      this.state.toHome ? <Redirect to={'/'}/> :
       <div className={'container'}>
         <h3 className={'center'}>Compose {this.props.replyingTo ? 'reply' : 'new Chirp'}</h3>
         <form className={'new-tweet'} onSubmit={(e) => this.handleSubmit(e)}>
@@ -37,13 +44,12 @@ class NewChirpForm extends Component {
   }
 }
 
-const mapStateToProps = ( { currentUser }, { replyingTo = null, history = null } ) => {
+const mapStateToProps = ( { currentUser }, { replyingTo = null} ) => {
   return {
     currentUser: currentUser,
-    replyingTo: replyingTo, 
-    history: history
+    replyingTo: replyingTo,
   }
 }
 
 
-export default connect(mapStateToProps)(NewChirpForm)
+export default withRouter(connect(mapStateToProps)(NewChirpForm))
