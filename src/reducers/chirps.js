@@ -1,4 +1,4 @@
-import { FETCH_DATA, TOGGLE_LIKE, NEW_CHIRP , EDIT_CHIRP} from '../actions/chirps'
+import { FETCH_DATA, TOGGLE_LIKE, NEW_CHIRP , EDIT_CHIRP, DELETE_CHIRP} from '../actions/chirps'
 
 export default function chirps (state={}, action) {
     const { chirpInfo } = action;
@@ -37,7 +37,16 @@ export default function chirps (state={}, action) {
                     text: text
                 }
             }
-            default:
+        case DELETE_CHIRP:
+            // This idea from https://stackoverflow.com/questions/34401098/remove-a-property-in-an-object-immutably
+            // will create a new variable called "newState" that we can return in the dispatch
+            // value would be accessible as the contents of the chirp being deleted.
+
+            const {[chirpInfo.id]: chirpToDelete, ...newState} = state;
+            return {
+                ...newState
+            }
+        default:
             return state
     }
 }

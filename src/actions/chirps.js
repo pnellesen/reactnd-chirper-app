@@ -5,6 +5,7 @@ export const FETCH_DATA = 'FETCH_DATA'
 export const TOGGLE_LIKE = 'TOGGLE_LIKE'
 export const NEW_CHIRP = 'NEW_CHIRP'
 export const EDIT_CHIRP = 'EDIT_CHIRP'
+export const DELETE_CHIRP = 'DELETE_CHIRP'
 
 
 export const fetchChirps = (chirps) => {
@@ -26,6 +27,13 @@ export const toggleLikeAction = (toggleInfo) => {
 export const newChirpAction = (chirpInfo) => {
     return {
         type: NEW_CHIRP,
+        chirpInfo
+    }
+}
+
+export const deleteChirpAction = (chirpInfo) => {
+    return {
+        type: DELETE_CHIRP,
         chirpInfo
     }
 }
@@ -62,9 +70,15 @@ export const handleNewChirp = (newChirpInfo) => {
 }
 
 export const handleEditChirp = (chirpInfo) => {
-    console.log("handleEditChirp: ", chirpInfo)
     return (dispatch) => {
         dispatch(editChirpAction(chirpInfo))
     }
 }
+
+export const handleDeleteChirp = (chirpInfo) => {
+    return (dispatch) => {
+        dispatch(deleteChirpAction(chirpInfo))
+    }
+}
+
 

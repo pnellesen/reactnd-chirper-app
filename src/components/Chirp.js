@@ -1,22 +1,20 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import  *  as helpers from '../utils/helpers'
 import TiArrowBackOutline from 'react-icons/lib/ti/arrow-back-outline'
 import TiHeartOutline from 'react-icons/lib/ti/heart-outline'
 import TiHeartFullOutline from 'react-icons/lib/ti/heart-full-outline'
+import TiClose from 'react-icons/lib/io/close'
 import TiEdit from 'react-icons/lib/ti/edit'
-import { handleToggleLikes, handleEditChirp } from '../actions/chirps';
-import NewChirpForm from './NewChirpForm'
+import TiSave from 'react-icons/lib/md/save'
+import TiDelete from 'react-icons/lib/md/delete'
+import { handleToggleLikes, handleEditChirp, handleDeleteChirp } from '../actions/chirps';
 
 class Chirp extends Component {
   state = {
     chirpEditText: this.props.chirpInfo.text,
     showEdit: false
-  }
-
-  componentDidMount() {
-
   }
   
   _onChange = (evt) => (
@@ -24,6 +22,7 @@ class Chirp extends Component {
       chirpEditText: evt.target.value 
     })
   )
+
   toggleLike = () => {
     const toggleLikeInfo = {
       id: this.props.chirpId,
@@ -32,9 +31,11 @@ class Chirp extends Component {
     }
     this.props.dispatch(handleToggleLikes(toggleLikeInfo));
   }
+
   toggleEdit = () => {
     this.setState({showEdit: !this.state.showEdit})
   }
+
   handleEdit = (evt) => {
     evt.preventDefault();
     console.log("edit chirp: ", this.state.chirpEditText);
@@ -43,6 +44,14 @@ class Chirp extends Component {
       text: this.state.chirpEditText
     }))
     this.toggleEdit();
+  }
+
+  handleDelete = (evt) => {
+    evt.preventDefault();
+    this.props.dispatch(handleDeleteChirp({
+      id: this.props.chirpId
+    }))
+    this.props.history.push('/')
   }
 
   render() {
@@ -62,7 +71,7 @@ class Chirp extends Component {
             <div className={'container'} style={{display: this.state.showEdit ? 'block' : 'none'}}>
               <form className={'new-tweet'} onSubmit={(e) => this.handleEdit(e)} >
                 <textarea className={'textarea'} placeholder={"What's happening?"} value={this.state.chirpEditText} onChange={this._onChange} maxLength={280}/>
-                <button type={'submit'} className={'btn'} >Submit</button>
+                <div><TiSave className={'tweet-icon'} style={{float:'left'}} onClick={(e) => this.handleEdit(e)} /><TiClose className={'tweet-icon'} style={{float:'right'}} onClick={(e) => this.toggleEdit(e)}/></div>
               </form>
             </div>
             <div className={'tweet-icons'} style={{float:'left'}}>
@@ -73,7 +82,7 @@ class Chirp extends Component {
               </button>
               {chirpInfo.likes > 0 && (<span>{chirpInfo.likes}</span>)}
             </div>
-            {chirpInfo.author === this.props.currentUser && <TiEdit onClick={(e) => this.toggleEdit()} className='tweet-icon' style={{float:'right'}}/>}
+            {chirpInfo.author === this.props.currentUser && <span><TiDelete className='tweet-icon' style={{float:'right'}} onClick={(e) => this.handleDelete(e)}/><TiEdit onClick={(e) => this.toggleEdit()} className='tweet-icon' style={{float:'right', marginRight:'20px'}}/></span>}
           </div>
 
         </div>
@@ -91,4 +100,4 @@ const mapStateToProps = ( { chirps, authors, currentUser }, { chirpId } ) => {
   }
 }
 
-export default connect(mapStateToProps)(Chirp)
+export default withRouter(connect(mapStateToProps)(Chirp))
