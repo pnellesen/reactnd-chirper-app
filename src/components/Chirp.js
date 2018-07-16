@@ -18,6 +18,7 @@ class Chirp extends Component {
   componentDidMount() {
 
   }
+  
   _onChange = (evt) => (
     this.setState({
       chirpEditText: evt.target.value 
@@ -35,12 +36,13 @@ class Chirp extends Component {
     this.setState({showEdit: !this.state.showEdit})
   }
   handleEdit = (evt) => {
+    evt.preventDefault();
     console.log("edit chirp: ", this.state.chirpEditText);
-    const editChirpInfo = {
+    this.props.dispatch(handleEditChirp({
       id: this.props.chirpId,
       text: this.state.chirpEditText
-    }
-    this.props.dispatch(handleEditChirp(editChirpInfo))
+    }))
+    this.toggleEdit();
   }
 
   render() {
@@ -57,9 +59,12 @@ class Chirp extends Component {
             <div>{helpers.formatDate(chirpInfo.timestamp)}</div>
             {chirpInfo.parent !== null && (<Link to={`/reply/${chirpInfo.parent.id}`} className={'replying-to'}>Replying to: @{chirpInfo.parent.author}</Link>)}
             <p style={{display: this.state.showEdit ? 'none' : 'block'}}>{this.state.chirpEditText}</p>
-            <form className={'new-tweet'} onSubmit={(e) => this.handleEdit(e)} style={{display: this.state.showEdit ? 'block' : 'none'}}>
-            <textarea className={'textarea'} placeholder={"What's happening?"} value={this.state.chirpEditText} onChange={this._onChange} maxLength={280}/>
-            </form>
+            <div className={'container'} style={{display: this.state.showEdit ? 'block' : 'none'}}>
+              <form className={'new-tweet'} onSubmit={(e) => this.handleEdit(e)} >
+                <textarea className={'textarea'} placeholder={"What's happening?"} value={this.state.chirpEditText} onChange={this._onChange} maxLength={280}/>
+                <button type={'submit'} className={'btn'} >Submit</button>
+              </form>
+            </div>
             <div className={'tweet-icons'} style={{float:'left'}}>
               <Link to={`/reply/${chirpInfo.id}`}><TiArrowBackOutline className={'tweet-icon'}/></Link>
               <span>{chirpInfo.replies > 0 && chirpInfo.replies}</span>

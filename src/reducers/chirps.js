@@ -28,11 +28,11 @@ export default function chirps (state={}, action) {
                 ...chirpToUpdate
             }
         case EDIT_CHIRP:
-            const { editId, text } = action;
-            const chirpToEdit = state[editId]
+            const { text } = chirpInfo;
+            const chirpToEdit = state[chirpInfo.id]
             return {
-                state,
-                [editId]: {
+                ...state,
+                [chirpInfo.id]: {
                     ...chirpToEdit,
                     text: text
                 }

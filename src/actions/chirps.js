@@ -62,8 +62,9 @@ export const handleNewChirp = (newChirpInfo) => {
 }
 
 export const handleEditChirp = (chirpInfo) => {
+    console.log("handleEditChirp: ", chirpInfo)
     return (dispatch) => {
-        dispatch(handleEditChirp(chirpInfo))
+        dispatch(editChirpAction(chirpInfo))
     }
 }
 

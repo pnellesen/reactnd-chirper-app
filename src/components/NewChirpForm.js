@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import {Redirect, withRouter} from 'react-router-dom'
-import { handleNewChirp } from '../actions/chirps';
+import { handleNewChirp, handleEditChirp } from '../actions/chirps';
 
 class NewChirpForm extends Component {
   state = {
-    chirpText: '',
+    chirpText: this.props.text,
     toHome: false
   }
 
@@ -15,16 +15,20 @@ class NewChirpForm extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+    this.props.editing === null ?
     this.props.dispatch(handleNewChirp({
       text: this.state.chirpText,
       author:this.props.currentUser,
       replyingTo: this.props.replyingTo
+    })) : this.props.dispatch(handleEditChirp({
+      id: this.props.editing,
+      text: this.state.chirpText
     }))
     this.setState({
-      chirpText: '',
-      toHome: !this.props.replyingTo && true
+      chirpText: this.props.editing !== null ? this.state.chirpText : '',
+      toHome: !this.props.replyingTo && this.props.editing === null && true
     });
-    !this.props.replyingTo  && this.props.history.push('/new')
+    !this.props.replyingTo  && this.props.editing === null && this.props.history.push('/new')
   }
 
   render() {
@@ -44,10 +48,13 @@ class NewChirpForm extends Component {
   }
 }
 
-const mapStateToProps = ( { currentUser }, { replyingTo = null} ) => {
+const mapStateToProps = ( { currentUser, chirps }, { replyingTo = null, editing = null} ) => {
+  const text = editing !== null ? chirps[editing].text : ''
   return {
     currentUser: currentUser,
     replyingTo: replyingTo,
+    editing: editing,
+    text: text
   }
 }
 
