@@ -1,6 +1,7 @@
-import { FETCH_DATA, TOGGLE_LIKE, NEW_CHIRP } from '../actions/chirps'
+import { FETCH_DATA, TOGGLE_LIKE, NEW_CHIRP , EDIT_CHIRP} from '../actions/chirps'
 
 export default function chirps (state={}, action) {
+    const { chirpInfo } = action;
     switch(action.type) {
         case FETCH_DATA:
             return {
@@ -20,16 +21,23 @@ export default function chirps (state={}, action) {
                 }
             }
         case NEW_CHIRP:
-            const { chirpInfo } = action;
             const chirpToUpdate = chirpInfo.replyingTo !== null ? {[chirpInfo.replyingTo]: {...state[chirpInfo.replyingTo], replies: state[chirpInfo.replyingTo].replies.concat([chirpInfo.id])}} : {}
-
             return {
                 ...state,
                 [chirpInfo.id]: {...chirpInfo},
                 ...chirpToUpdate
-
             }
-        default:
+        case EDIT_CHIRP:
+            const { editId, text } = action;
+            const chirpToEdit = state[editId]
+            return {
+                state,
+                [editId]: {
+                    ...chirpToEdit,
+                    text: text
+                }
+            }
+            default:
             return state
     }
 }

@@ -4,6 +4,7 @@ import { showLoading, hideLoading } from 'react-redux-loading'
 export const FETCH_DATA = 'FETCH_DATA'
 export const TOGGLE_LIKE = 'TOGGLE_LIKE'
 export const NEW_CHIRP = 'NEW_CHIRP'
+export const EDIT_CHIRP = 'EDIT_CHIRP'
 
 
 export const fetchChirps = (chirps) => {
@@ -25,6 +26,13 @@ export const toggleLikeAction = (toggleInfo) => {
 export const newChirpAction = (chirpInfo) => {
     return {
         type: NEW_CHIRP,
+        chirpInfo
+    }
+}
+
+export const editChirpAction = (chirpInfo) => {
+    return {
+        type: EDIT_CHIRP,
         chirpInfo
     }
 }
@@ -53,4 +61,9 @@ export const handleNewChirp = (newChirpInfo) => {
 
 }
 
+export const handleEditChirp = (chirpInfo) => {
+    return (dispatch) => {
+        dispatch(handleEditChirp(chirpInfo))
+    }
+}
 

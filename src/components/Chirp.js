@@ -6,7 +6,7 @@ import TiArrowBackOutline from 'react-icons/lib/ti/arrow-back-outline'
 import TiHeartOutline from 'react-icons/lib/ti/heart-outline'
 import TiHeartFullOutline from 'react-icons/lib/ti/heart-full-outline'
 import TiEdit from 'react-icons/lib/ti/edit'
-import { handleToggleLikes } from '../actions/chirps';
+import { handleToggleLikes, handleEditChirp } from '../actions/chirps';
 import NewChirpForm from './NewChirpForm'
 
 class Chirp extends Component {
@@ -32,10 +32,15 @@ class Chirp extends Component {
     this.props.dispatch(handleToggleLikes(toggleLikeInfo));
   }
   toggleEdit = () => {
-      this.setState({showEdit: !this.state.showEdit})
+    this.setState({showEdit: !this.state.showEdit})
   }
   handleEdit = (evt) => {
     console.log("edit chirp: ", this.state.chirpEditText);
+    const editChirpInfo = {
+      id: this.props.chirpId,
+      text: this.state.chirpEditText
+    }
+    this.props.dispatch(handleEditChirp(editChirpInfo))
   }
 
   render() {
